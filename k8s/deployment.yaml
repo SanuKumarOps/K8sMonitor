@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8smonitor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8smonitor
+  template:
+    metadata:
+      labels:
+        app: k8smonitor
+    spec:
+      containers:
+        - name: k8smonitor
+          image: sanukumar2/k8smonitor:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
