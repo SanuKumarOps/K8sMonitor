@@ -1,0 +1,6 @@
+apiVersion: v2
+name: k8smonitor
+description: Kubernetes CI/CD and Monitoring application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
